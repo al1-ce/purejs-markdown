@@ -2,6 +2,18 @@
 Markdown compiler written in pure JS, no libs, no frameworks, absolutely unbearable code!
 Actually it's just a tiny tool for myself and nothing else.
 
+Usage: 
+`jConvertMarkdown(doCenterAltHeaders = true)`: automatically convert all DOM elements with class 'pjs-markdown'.
+    `args:`
+    `doCenterAltHeaders: centers alternative h1, h2 headers (====, -----), default: true`
+
+`jMarkdownToHtml(mdown, doCenterAltHeaders = true)`: convert markdown string supplied to function. Returns HTML.  
+    `args:`
+    `mdown: markdown string to convert`
+    `doCenterAltHeaders: centers alternative h1, h2 headers (====, -----), default: true`
+    
+
+
 | Element                   | Support   | Notes                             |
 |:------------------------- |:--------- |:--------------------------------- |
 | Headings                  |   Yes     |                                   |
