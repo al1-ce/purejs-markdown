@@ -3,13 +3,13 @@ Markdown compiler written in pure JS, no libs, no frameworks, absolutely unbeara
 Actually it's just a tiny tool for myself and nothing else.
 
 Usage: 
-`jConvertMarkdown(doCenterAltHeaders = true)`: automatically convert all DOM elements with class 'pjs-markdown'.
-    `args:`
-    `doCenterAltHeaders: centers alternative h1, h2 headers (====, -----), default: true`
+`jConvertMarkdown(doCenterAltHeaders = true)`: automatically convert all DOM elements with class 'pjs-markdown'. \
+    `args:` \
+    `doCenterAltHeaders: centers alternative h1, h2 headers (====, -----), default: true` 
 
-`jMarkdownToHtml(mdown, doCenterAltHeaders = true)`: convert markdown string supplied to function. Returns HTML.  
-    `args:`
-    `mdown: markdown string to convert`
+`jMarkdownToHtml(mdown, doCenterAltHeaders = true)`: convert markdown string supplied to function. Returns HTML.  \
+    `args:` \
+    `mdown: markdown string to convert` \
     `doCenterAltHeaders: centers alternative h1, h2 headers (====, -----), default: true`
     
 
@@ -17,13 +17,14 @@ Usage:
 | Element                   | Support   | Notes                             |
 |:------------------------- |:--------- |:--------------------------------- |
 | Headings                  |   Yes     |                                   |
-| Paragraphs                |   Yes	    |                                   |
-| Line Breaks	            |   No	    | Yes if you going in \`true\` text     |
+| Paragraphs                |   Yes	    |                    But it's broken for now               |
+| Line Breaks	            |   Yes	    |       |
+| Automatic Line Breaks	    |   Yes	    |       |
 | Bold	                    |   Yes	    |                                   |
 | Italic	                |   Yes	    |                                   |
 | Blockquotes	            |   No	    |                                   |
-| Ordered Lists	            |   No	    |                                   |
-| Unordered Lists	        |   Yes	    |                                   |
+| Ordered Lists	            |   Yes	    |    Broken                                |
+| Unordered Lists	        |   Yes	    |      Broken                             |
 | Code	                    |   Yes	    |                                   |
 | Horizontal Rules	        |   Yes	    |                                   |
 | Links	                    |   Yes	    |                                   |
@@ -41,5 +42,5 @@ Usage:
 | Highlight	                |   Yes	    |                                   |
 | Subscript	                |   Yes	    |                                   |
 | Superscript	            |   Yes	    |                                   |
-| Automatic URL Linking	    |   No      |                                   |
-| HTML	                    |   No	    | Probably not gonna implement |
+| Automatic URL Linking	    |   Yes      |                                   |
+| HTML	                    |   Yes	    | You already can, it's not gonna omit itself |
