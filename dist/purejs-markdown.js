@@ -685,7 +685,6 @@ function jMarkdownToHtml(mdown, options = null) {
             html[i]
         }</p>`
     }
-    console.log(html);
 
     html = `${
         html.join('')

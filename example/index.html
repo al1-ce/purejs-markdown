@@ -303,17 +303,5 @@ It converts "HTML", but keep intact partial entries like "xxxHTMLyyy" and so on.
         
     [The script](https://cdn.jsdelivr.net/gh/al1-ce/purejs-markdown@master/dist/purejs-markdown-min.js)
     `);
-
-    document.getElementById('md-to-html').innerHTML = html;
-    function getByClass(cl) {
-      return document.getElementsByClassName(cl);
-    }
-    function getMD() {
-      return getByClass('pjs-markdown');
-    }
-    function getMDP() {
-      return getByClass('pjs-markdown-parsed');
-    }
-    // console.log([...getMD()[0].innerHTML.matchAll(/((^ *\>+ .+[\n\r]?)+)/gm)]);
 	</script>
 </html>

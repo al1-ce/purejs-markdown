@@ -369,7 +369,7 @@ function jMarkdownToHtml(mdown, options = null) {
         html[i] = jProcessMarkDown(html[i], MD_REGEX);
         html[i] = `<p>${html[i]}</p>`
     }
-    console.log(html);
+    // console.log(html);
     // html = `<p>${html.join('</p><p>')}</p>`;
     html = `${html.join('')}`;
 
