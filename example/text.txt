@@ -1,18 +1,3 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset='utf-8'/>
-		<title>Simple Markdown Conversion</title>
-    <!--link rel="stylesheet" href="style.css"-->
-    <style>
-      img {
-        width: 200px;
-      }
-    </style>
-	</head>
-	<body>
-    <!--SCROLL TO BOTTOM-->
-        <div class="pjs-markdown">
 
 # h1 Heading 8-)
 ## h2 Heading
@@ -274,46 +259,3 @@ This is HTML abbreviation example.
 It converts "HTML", but keep intact partial entries like "xxxHTMLyyy" and so on.
 
 *[HTML]: Hyper Text Markup Language
-
-
-</div>
-        
-        <div id="md-to-html">
-          
-        </div>
-
-	</body>
-	<script src='../src/purejs-markdown.js'></script>
-	<script>
-		jConvertMarkdown();
-    // or you can use separate function (which jConvertMarkdown uses) to convert some markdown yourself
-    let html = jMarkdownToHtml(`
-    # Still  h1
-    Still a header
-    =======
-
-    Still a smaller header
-    -------
-
-    horizontal rulers?
-
-    -------
-
-    It's *simple*, __right__?
-        
-    [The script](https://cdn.jsdelivr.net/gh/al1-ce/purejs-markdown@master/dist/purejs-markdown-min.js)
-    `);
-
-    document.getElementById('md-to-html').innerHTML = html;
-    function getByClass(cl) {
-      return document.getElementsByClassName(cl);
-    }
-    function getMD() {
-      return getByClass('pjs-markdown');
-    }
-    function getMDP() {
-      return getByClass('pjs-markdown-parsed');
-    }
-    // console.log([...getMD()[0].innerHTML.matchAll(/((^ *\>+ .+[\n\r]?)+)/gm)]);
-	</script>
-</html>
