@@ -7,14 +7,14 @@ Include in your document as
 <script src="https://cdn.jsdelivr.net/gh/al1-ce/purejs-markdown@master/dist/purejs-markdown-min.js"></script>
 ```
 
-Usage: 
+Usage: \
 `jConvertMarkdown(options = null)`: automatically convert all DOM elements with class 'pjs-markdown'. \
     `args`: \
     `PJsMdOptions`: markdown converter options. Leave null or new to get default settings, default null
 
 `jMarkdownToHtml(mdown, options = null)`: convert markdown string supplied to function. Returns HTML.  \
     `args`: \
-    `mdown`: markdown string to convert` \
+    `mdown`: markdown string to convert \
     `PJsMdOptions`: markdown converter options. Leave null or new to get default settings, default null \
     `returns`: parsed html code
 
