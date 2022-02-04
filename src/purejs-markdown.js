@@ -349,8 +349,9 @@ function jInsertMarkdownToId(id, mdown, options = null) {
 }
 
 function jMarkdownToHtml(mdown, options = null) {
-    if (typeof options == 'object')
-    MD_OPTIONS.CENTER_ALT_HEADERS = options.CENTER_ALT_HEADERS;
+    if (options instanceof PJsMdOptions) {
+        MD_OPTIONS.CENTER_ALT_HEADERS = options.CENTER_ALT_HEADERS;
+    }
 
     MD_FOOTNOTES.FOOTNOTE = {};
     MD_FOOTNOTES.FOOTLINK = {};
