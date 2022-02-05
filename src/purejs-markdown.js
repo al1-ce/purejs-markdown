@@ -175,25 +175,6 @@ const MD_FCUSTOM = {
         tbl += '</table>'
         return html.replace(match[0], `</p>${tbl}<p>`);
     },
-    /*
-    <table>
-        <tr>
-            <th>Company</th>
-            <th>Contact</th>
-            <th>Country</th>
-        </tr>
-        <tr>
-            <td>Alfreds Futterkiste</td>
-            <td>Maria Anders</td>
-            <td>Germany</td>
-        </tr>
-        <tr>
-            <td>Centro comercial Moctezuma</td>
-            <td>Francisco Chang</td>
-            <td>Mexico</td>
-        </tr>
-    </table>
-    */
     ARROWS_FIX: function(html, match, regex, rstr, group) {
         return html.replace(match[0], `&lt;${match[1]}&gt;`);
     },
@@ -204,8 +185,12 @@ const STYLE_REG = '(?<!\\S)\\D(?![ S])(.+?)(?<![ S])\\D(?!\\S)';
 
 const MD_REGEX = {
     // SYNTAX OF OBJECT
-    // sadly since JS doesn't support regex's atomic groups it is necessary to 
-    // %name%: {regex: %regex to match string%, rstr: '%replace string to supply in func%', group: %group of content string, best if it's $1, func: '%function to replace string%' },
+    // %name%: {
+    //     regex: %regex to match string%, 
+    //     rstr: '%replace string to supply in func%', 
+    //     group: %group of content string, best if it's 1, 
+    //     func: '%function to replace string%' 
+    // }
     // empty white space lines, we don't need them // ANCHOR
     wspace: {regex: /(^ +)(?=[\n\r])/gm, rstr: '', group: 1, func: MD_FBASE.REPLACE },
     // replaces \<text> with &lt;text&gt; coz html
@@ -307,26 +292,13 @@ const MD_REGEX_LATE = {
 }
 
 function jConvertMarkdown(options = null) {
-    let classElem = document.getElementsByClassName('pjs-markdown');
+    let classElem = [...document.getElementsByClassName('pjs-markdown')];
     for (let i = 0; i < classElem.length; i ++) {
         let elem = classElem[i];
         // elem.innerText = elem.innerText.replaceAll('>', '⟩');return;
         let html = jMarkdownToHtml(elem.innerHTML, options);
         elem.innerHTML = html;
-        // i don't know why but this line omits all stray <p></p>'s and if i put it in jMarkdownToHtml() it doesnt?????
-        // elem.innerHTML = elem.innerHTML.replaceAll(/<p>\s*<\/p>/gm, ``);
-        // elem.innerHTML = elem.innerHTML.replaceAll(/<p>\s*<br>\s*<\/p>/gm, `<br>`);
-        // elem.innerHTML = elem.innerHTML.replaceAll(/(<br> *[\n\r]?<br>)+/gm, ``);
-        // elem.innerHTML = elem.innerHTML.replaceAll(/<br>\s*?[\r\n]?\S?(<\/.*?>)/gm, `$1`);
-        // let childs = elem.children;
-        // let l = childs.length;
-        // for (let i = 0; i < l; i ++) {
-        //     if (typeof childs[i] == 'undefined') continue;
-        //     if (childs[i].tagName.toLowerCase() == 'br') {
-        //         console.log(i);
-        //         elem.removeChild(childs[i]);
-        //     }
-        // }
+        
         elem.classList.replace('pjs-markdown', 'pjs-markdown-parsed');
         if (!document.getElementById('pjs-md-style')) {
             let style = document.createElement("style");

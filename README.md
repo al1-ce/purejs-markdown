@@ -2,11 +2,6 @@
 Markdown compiler written in pure JS, no libs, no frameworks, absolutely unbearable code!
 Actually it's just a tiny tool for myself and nothing else.
 
-Include in your document as
-```
-<script src="https://cdn.jsdelivr.net/gh/al1-ce/purejs-markdown@master/dist/purejs-markdown-min.js"></script>
-```
-
 Usage: \
 `jConvertMarkdown(options = null)`: automatically convert all DOM elements with class 'pjs-markdown'. \
     `args`: \
