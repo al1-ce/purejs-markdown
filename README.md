@@ -1,4 +1,10 @@
 # purejs-markdown
+[![Downloads](https://img.shields.io/github/downloads/al1-ce/purejs-markdown/total.svg)](https://github.com/al1-ce/purejs-markdown/releases)
+[![GitHub Stars](https://img.shields.io/github/stars/al1-ce/purejs-markdown.svg)](https://github.com/al1-ce/purejs-markdown/stargazers)
+[![Codecov](https://codecov.io/gh/al1-ce/purejs-markdown/branch/master/graph/badge.svg)](https://codecov.io/gh/al1-ce/purejs-markdown)
+[![BCH compliance](https://bettercodehub.com/edge/badge/al1-ce/purejs-markdown?branch=master)](https://bettercodehub.com/)
+
+
 Markdown compiler written in pure JS, no libs, no frameworks, absolutely unbearable code!
 Actually it's just a tiny tool for myself and nothing else.
 
