@@ -18,6 +18,9 @@
 // FIXME make everything run faster
 // FIXME do something with code split
 // FIXME tables without | surrounding outside
+// FIXME ... in front of text to elips
+// FIXME backslash doesnt do newline
+// FIXME lists are working with many letters before them
 
 const MD_CSS = '.pjs-markdown-parsed a{color:#428bca;text-decoration:none}.pjs-markdown-parsed a:focus,.pjs-markdown-parsed a:hover{color:#2a6496;text-decoration:underline}.pjs-markdown-parsed strong{font-weight:700}.pjs-markdown-parsed em{font-style:italic}.pjs-markdown-parsed s{text-decoration:line-through}.pjs-markdown-parsed blockquote{padding:10px 20px;margin:0 0 20px;border-left:5px solid #eee}.pjs-markdown-parsed code{padding:2px 4px;font-size:90%;color:#0c0c0b;background-color:#f9f2f4;border-radius:4px}.pjs-markdown-parsed pre{display:block;padding:9.5px;margin:0 0 10px;font-size:13px;line-height:1.42857143;color:#333;word-break:break-all;word-wrap:break-word;background-color:#f5f5f5;border:1px solid #ccc;border-radius:4px}.pjs-markdown-parsed pre code{padding:0;font-size:inherit;color:inherit;white-space:pre;background-color:transparent;border-radius:0}.pjs-markdown-parsed mark{padding:.2em;background-color:#fcf8e3}.pjs-markdown-parsed table{max-width:100%;margin-bottom:20px}.pjs-markdown-parsed table{border-spacing:0;border-collapse:collapse;background-color:#f9f9f9}.pjs-markdown-parsed table tr:nth-child(even){background-color:#f5f5f5}.pjs-markdown-parsed table tr th{vertical-align:bottom;border-bottom:2px solid #ddd;font-weight:700;padding:8px;line-height:1.42857143;background-color:#f9f9f9}.pjs-markdown-parsed table tr td{padding:8px;line-height:1.42857143;vertical-align:top;border-top:1px solid #ddd}';
 
@@ -63,22 +66,23 @@ const MD_FBASE = {
 const MD_FCUSTOM = {
     HEADER: function(html, match, regex, rstr, group) {
         let h = (match[1].match(/#/g)||[]).length;
-        return html.replace(match[0], `<h${h}>${match[2]}</h${h}>`);
+        return html.replace(match[0], `<h${h} id="pjs-md-head-${match[2]}">${match[2]}</h${h}>`);
     },
     HEADER_ALT: function(html, match, regex, rstr, group) {
         // match 1 - replace text, 2 - header type
         let h = match[2] == '=' ? 1 : 2;
         let c = '';
-        if (MD_OPTIONS.CENTER_ALT_HEADERS) c = ` style="text-align: center;"`
-        return html.replace(match[0], `<h${h}${c}>${match[1]}</h${h}>`);
+        if (MD_OPTIONS.CENTER_ALT_HEADERS) c = `style="text-align: center;"`
+        return html.replace(match[0], `<h${h} ${c} id="pjs-md-head-${match[1]}">${match[1]}</h${h}>`);
     }, 
     LINK: function(html, match, regex, rstr, group) {
         // match 1 - text/alt (if image), 2 - link, 4 - title
         let title = typeof match[4] == 'undefined' ? '' : `title="${match[4]}"`;
+        let link = match[2].startsWith("#") ? "#pjs-md-head-" + match[2].replace("#", "") : match[2];
         if (match[0].charAt(0) == '!') {
-            return html.replace(match[0], `<img src="${match[2]}" alt="${match[1]}" ${title}}></img>`);
+            return html.replace(match[0], `<img src="${link}" alt="${match[1]}" ${title}}></img>`);
         } else {
-            return html.replace(match[0], `<a href="${match[2]}" ${title}}>${match[1]}</a>`);
+            return html.replace(match[0], `<a href="${link}" ${title}}>${match[1]}</a>`);
         }
     },
     LINK_TO_FOOTER: function(html, match, regex, rstr, group) {
@@ -238,9 +242,6 @@ const MD_REGEX = {
     // ordered
     olist_wrap: {regex: /((^ *[\w\d]+\. ([\w\S]{1}.*) *?[\n\r]?[\n\r]?)+)/gm, rstr: 'ol', group: 1, func: MD_FBASE.WRAP_P}, 
     ol: {regex: /^ *[\w\d]+\. ([\w\S]{1}.*)/gm, rstr: 'li', group: 1, func: MD_FBASE.ADD_TAG},
-    // code
-    code_inl: {regex: /\`([^\`\n\r]+)\`/gm, rstr: 'code', group: 1, func: MD_FBASE.ADD_TAG},
-    code_ind: {regex: /\`{3}.*[\n\r]([\S\s]+?(.*))\`{3}$/gm, rstr: 'code', group: 1, func: MD_FCUSTOM.CODE}, 
     // tables
     tb: {regex: /((?:\|.+\|)\n? *\|(?: *?:? *?-{3,} *?:? *?\|)+\n? *(?:(?:\|.+\|)\n? *)*)/gm, rstr: 'table', group: 1, func: MD_FCUSTOM.TABLE}, // it detects | the | table |
     // links (target groups are 1 - text, 2 - link, 4 - title)
@@ -275,6 +276,9 @@ const MD_REGEX_EARLY = {
     footnote_link: {regex: /\[\^([^\]]+)\](?=[^:])/gm, rstr: '', group: 1, func: MD_FCUSTOM.FOOTNOTE_LINK},
     // inline footnote
     footnote_inline: {regex: /\^\[(.*?)\]/gm, rstr: '', group: 1, func: MD_FCUSTOM.FOOTNOTE_INLINE},
+    // code
+    code_inl: {regex: /\`([^\`\n\r]+)\`/gm, rstr: 'code', group: 1, func: MD_FBASE.ADD_TAG},
+    code_ind: {regex: /\`{3}.*[\n\r]([\S\s]+?(.*))\`{3}$/gm, rstr: 'code', group: 1, func: MD_FCUSTOM.CODE}, 
 }
 
 const MD_REGEX_LATE = {
@@ -370,3 +374,7 @@ function jProcessMarkDown(mdown, regex) {
     }
     return html;
 }
+
+document.addEventListener("DOMContentLoaded", function() {
+    jConvertMarkdown();
+});
